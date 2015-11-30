@@ -12,13 +12,132 @@ use ieee.std_logic_1164.all;
 entity g05_pattern_input is
 	port (
         increment, sel : in std_logic;
-        seg1, seg2, seg3, seg4 : out std_logic_vector(6 downto 0);
-        ext_pattern : out std_logic_vector(11 downto 0)
+        seg_code : out std_logic_vector(3 downto 0);
+        segment : out std_logic_vector(1 downto 0)
 	);
 end g05_pattern_input;
 
 architecture behavior of g05_pattern_input is
+
+    type segment is (s1, s2, s3, s4);
+    type color is (c1, c2, c3, c4, c5, c6);
+    signal s_present, s_next : segment;
+    signal c_present, c_next : color;
+
+begin
+	selector: process(sel)
     begin
-        
+        case s_present is
+            when s1 =>
+                if sel = '1' then
+                    s_next <= s2;
+                else
+                    s_next <= s1;
+                end if;
+                
+            when s2 =>
+                if sel = '1' then
+                    s_next <= s3;
+                else
+                    s_next <= s2;
+                end if;
+                
+            when s3 =>
+                if sel = '1' then
+                    s_next <= s4;
+                else
+                    s_next <= s3;
+                end if;
+                
+            when s4 =>
+                if sel = '1' then
+                    s_next <= s1;
+                else
+                    s_next <= s4;
+                end if;
+                
+            when others =>
+                s_next <= s1;
+         end case;
+    end process; 
+
+    process(CLK)
+	begin
+		if rising_edge(CLK) then
+			s_present <= s_next;
+		end if;
+	end process; 
+
+	incrementor: process(increment)
+	begin
+	     case c_present is
+            when c1 =>
+                if increment = '1' then
+                    c_next <= c2;
+                else
+                    c_next <= c1;
+                end if;
+                
+            when c2 =>
+                if increment = '1' then
+                    c_next <= c3;
+                else
+                    c_next <= c2;
+                end if;
+                
+            when c3 =>
+                if increment = '1' then
+                    c_next <= c4;
+                else
+                    c_next <= c3;
+                end if;
+                
+            when c4 =>
+                if increment = '1' then
+                    c_next <= c5;
+                else
+                    c_next <= c4;
+                end if;
+
+            when c5 =>
+                if increment = '1' then
+                    c_next <= c6;
+                else
+                    c_next <= c5;
+                end if;
+                
+            when c6 =>
+                if increment = '1' then
+                    c_next <= c1;
+                else
+                    c_next <= c6;
+                end if;
+                
+            when others =>
+                c_next <= c1;
+         end case; 
+	end process;
+	
+   process(CLK)
+	begin
+		if rising_edge(CLK) then
+			c_present <= c_next;
+		end if;
+	end process; 
+
+	seg_code <= "1010" when c_present = c1 else
+				"1011" when c_present = c2 else
+				"1100" when c_present = c3 else
+				"1101" when c_present = c4 else
+				"1110" when c_present = c5 else
+				"1111" when c_present = c6 else
+				"1010";
+
+	segement <= "00" when s_present = s1 else
+				"01" when s_present = s2 else
+				"10" when s_present = s3 else
+				"11" when s_present = s4 else
+				"00";
+
 
 end behavior;
