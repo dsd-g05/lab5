@@ -9,7 +9,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity g05_controller is
+entity g05_mastermind_controller is
 	port (
         SC_CMP, TC_LAST : in std_logic;
         START, READY : in std_logic;
@@ -20,9 +20,9 @@ entity g05_controller is
         TM_IN, TM_EN, TC_EN, TC_RST : out std_logic; 
         SOLVED : out std_logic
 	);
-end g05_controller;
+end g05_mastermind_controller;
 
-architecture behavior of g05_controller is
+architecture behavior of g05_mastermind_controller is
     type state is (s1, s2, s3, s4, s5, s6, s7, s8, s9,
                    s10, s11, s12, s13, s14);
     signal s_present, s_next : state;
