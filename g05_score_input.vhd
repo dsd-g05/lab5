@@ -29,14 +29,14 @@ begin
     begin
         case s_present is
             when s1 =>
-                if sel = '1' then
+                if sel = '0' then
                     s_next <= s2;
                 else
                     s_next <= s1;
                 end if;
                 
             when s2 =>
-                if sel = '1' then
+                if sel = '0' then
                     s_next <= s1;
                 else
                     s_next <= s2;
@@ -57,35 +57,35 @@ begin
     begin
          case c_present is
             when c1 =>
-                if increment = '1' then
+                if increment = '0' then
                     c_next <= c2;
                 else
                     c_next <= c1;
                 end if;
                 
             when c2 =>
-                if increment = '1' then
+                if increment = '0' then
                     c_next <= c3;
                 else
                     c_next <= c2;
                 end if;
                 
             when c3 =>
-                if increment = '1' then
+                if increment = '0' then
                     c_next <= c4;
                 else
                     c_next <= c3;
                 end if;
                 
             when c4 =>
-                if increment = '1' then
+                if increment = '0' then
                     c_next <= c5;
                 else
                     c_next <= c4;
                 end if;
 
             when c5 =>
-                if increment = '1' then
+                if increment = '0' then
                     c_next <= c1;
                 else
                     c_next <= c5;

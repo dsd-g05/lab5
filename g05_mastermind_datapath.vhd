@@ -71,10 +71,10 @@ architecture behavior of g05_mastermind_datapath is
     
 begin
 
-    P1 <= EXT_PATTERN(2 downto 0) when P_SEL = '0' else TM_ADDR(2 downto 0);
-    P2 <= EXT_PATTERN(5 downto 3) when P_SEL = '0' else TM_ADDR(5 downto 3);
-    P3 <= EXT_PATTERN(8 downto 6) when P_SEL = '0' else TM_ADDR(8 downto 6);
-    P4 <= EXT_PATTERN(11 downto 9) when P_SEL = '0' else TM_ADDR(11 downto 9);
+    P4 <= EXT_PATTERN(2 downto 0) when P_SEL = '0' else TM_ADDR(2 downto 0);
+    P3 <= EXT_PATTERN(5 downto 3) when P_SEL = '0' else TM_ADDR(5 downto 3);
+    P2 <= EXT_PATTERN(8 downto 6) when P_SEL = '0' else TM_ADDR(8 downto 6);
+    P1 <= EXT_PATTERN(11 downto 9) when P_SEL = '0' else TM_ADDR(11 downto 9);
     
     process(CLK)
     begin
