@@ -94,7 +94,7 @@ begin
                         s_next <= s2;
                     end if;
                     
-                when other =>
+                when others =>
                     s_next <= s1;
             end case;
         else
@@ -136,7 +136,7 @@ begin
                         s_next <= s11;
                     end if;
   
-                when other =>
+                when others =>
                     s_next <= s10;
             end case;
         end if;

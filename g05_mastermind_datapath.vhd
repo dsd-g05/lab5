@@ -15,9 +15,11 @@ entity g05_mastermind_datapath is
         GR_LD, SR_LD : in std_logic;
         TM_IN, TM_EN, TC_RST, TC_EN : in std_logic;
         EXT_PATTERN : in std_logic_vector(11 downto 0);
+        MODE : in std_logic;
         CLK : in std_logic;
         TC_LAST : out std_logic;
-        SC_CMP : out std_logic
+        SC_CMP : out std_logic;
+        DIS_P1, DIS_P2, DIS_P3, DIS_P4 : out std_logic_vector(3 downto 0)
 	);
 end g05_mastermind_datapath;
 
@@ -54,10 +56,18 @@ architecture behavior of g05_mastermind_datapath is
         );
     end component;
 
+    component g05_color_decoder is
+        port (
+            color : in std_logic_vector(2 downto 0);
+            color_code : out std_logic_vector(3 downto 0)
+        );
+    end component;    
+    
     signal P1, P2, P3, P4 : std_logic_vector(2 downto 0);
     signal G1, G2, G3, G4 : std_logic_vector(2 downto 0);
     signal TM_ADDR : std_logic_vector(11 downto 0);
     signal score, score_reg, SR : std_logic_vector(3 downto 0);
+    signal G1_code, G2_code, G3_code, G4_code, P1_code, P2_code, P3_code, P4_code : std_logic_vector(3 downto 0);
     
 begin
 
@@ -84,7 +94,49 @@ begin
             end if;
         end if;
     end process;
+    
 
+    G1_decode : g05_color_decoder
+        port map (color => G1, color_code => G1_code);
+
+    G2_decode : g05_color_decoder
+        port map (color => G2, color_code => G2_code);
+    
+    G3_decode : g05_color_decoder
+        port map (color => G3, color_code => G3_code);    
+        
+    G4_decode : g05_color_decoder
+        port map (color => G4, color_code => G4_code);    
+        
+    P1_decode : g05_color_decoder
+        port map (color => P1, color_code => P1_code);    
+    
+    P2_decode : g05_color_decoder
+        port map (color => P2, color_code => P2_code);
+        
+    P3_decode : g05_color_decoder
+        port map (color => P3, color_code => P3_code);
+    
+    P4_decode : g05_color_decoder
+        port map (color => P4, color_code => P4_code);
+    
+    process(CLK)
+    begin
+        if (rising_edge(CLK)) then
+            if MODE = '0' then
+                DIS_P1 <= G1_code;
+                DIS_P2 <= G2_code;
+                DIS_P3 <= G3_code;
+                DIS_P4 <= G4_code;
+            else
+                DIS_P1 <= P1_code;
+                DIS_P2 <= P2_code;
+                DIS_P3 <= P3_code;
+                DIS_P4 <= P4_code;
+            end if;
+        end if;
+    end process;
+    
     mastermind_score : g05_mastermind_score
         port map (P1 => P1, P2 => P2, P3 => P3, P4 => P4,
                   G1 => G1, G2 => G2, G3 => G3, G4 => G4,

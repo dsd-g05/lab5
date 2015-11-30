@@ -14,7 +14,8 @@ entity g05_lab5 is
         start, ready : in std_logic;
 		sel, increment : in std_logic;
         mode : in std_logic;
-        clk : in std_logic
+        clk : in std_logic;
+        seg_1, seg_2, seg_3, seg_4 : out std_logic_vector(6 downto 0)
 	);
 end g05_lab5;
 
@@ -39,9 +40,11 @@ architecture behavior of g05_lab5 is
             GR_LD, SR_LD : in std_logic;
             TM_IN, TM_EN, TC_RST, TC_EN : in std_logic;
             EXT_PATTERN : in std_logic_vector(11 downto 0);
+            MODE : in std_logic;
             CLK : in std_logic;
             TC_LAST : out std_logic;
-            SC_CMP : out std_logic
+            SC_CMP : out std_logic;
+            DIS_P1, DIS_P2, DIS_P3, DIS_P4 : out std_logic_vector(3 downto 0)
 		);
 	end component;
 	
@@ -51,23 +54,35 @@ architecture behavior of g05_lab5 is
     signal TC_LAST : std_logic;
     signal SC_CMP : std_logic;
     signal SOLVED : std_logic;
+    signal DIS_P1, DIS_P2, DIS_P3, DIS_P4 : std_logic_vector(3 downto 0);
     
 	component g05_pattern_input is
 		port (
             increment, sel : in std_logic;
-            seg_code : out std_logic_vector(3 downto 0);
+            CLK : in std_logic;
+            seg_code : out std_logic_vector(2 downto 0);
             segment : out std_logic_vector(1 downto 0)
 		);
 	end component;
     
-    signal seg_code : std_logic_vector(3 downto 0);
+    signal seg_code : std_logic_vector(2 downto 0);
     signal segment : std_logic_vector(1 downto 0);
-    signal ext_p1, ext_p2, ext_p3, ext_p4;
+    signal ext_p1, ext_p2, ext_p3, ext_p4 : std_logic_vector(2 downto 0);
+    signal ext_pattern : std_logic_vector(11 downto 0);
+    
+    component g05_7_segment_decoder is
+        port (  
+            code : in std_logic_vector(3 downto 0);
+            RippleBlank_In : in std_logic;
+            RippleBlank_Out : out std_logic;
+            segments : out std_logic_vector(6 downto 0)
+        );
+    end component;
     
 begin
 
 	pattern_input : g05_pattern_input
-        port map (increment => increment, sel => sel,
+        port map (increment => increment, sel => sel, CLK => CLK,
                   seg_code => seg_code, segment => segment);
     
     ext_p1 <= seg_code when segment = "00";
@@ -75,17 +90,7 @@ begin
     ext_p3 <= seg_code when segment = "10";
     ext_p4 <= seg_code when segment = "11";
     
-    ext_pattern = ext_p1 & ext_p2 & ext_p3 & ext_p4;
-    
-    process(clk)
-    begin
-        if (rising_edge(clk)) then
-            if (mode = '0') then
-            else
-                
-            end if;
-        end if;
-    end process;
+    ext_pattern <= ext_p1 & ext_p2 & ext_p3 & ext_p4;
     
     controller : g05_mastermind_controller
         port map (SC_CMP => SC_CMP, TC_LAST => TC_LAST, START => start, READY => ready,
@@ -96,6 +101,19 @@ begin
     datapath : g05_mastermind_datapath
         port map (P_SEL => P_SEL, GR_SEL => GR_SEL, SR_SEL => SR_SEL, GR_LD => GR_LD, SR_LD => SR_LD,
                   TM_IN => TM_IN, TM_EN => TM_EN, TC_RST => TC_RST, TC_EN => TC_EN, EXT_PATTERN => ext_pattern,
-                  CLK => clk, TC_LAST => TC_LAST, SC_CMP => SC_CMP);
+                  MODE => mode, CLK => clk, TC_LAST => TC_LAST, SC_CMP => SC_CMP, DIS_P1 => DIS_P1,
+                  DIS_P2 => DIS_P2, DIS_P3 => DIS_P3, DIS_P4 => DIS_P4);
+                  
+    segment1 : g05_7_segment_decoder
+        port map (code => DIS_P1, RippleBlank_In => '0', segments => seg_1);
+        
+    segment2 : g05_7_segment_decoder
+        port map (code => DIS_P2, RippleBlank_In => '0', segments => seg_2);
+        
+    segment3 : g05_7_segment_decoder
+        port map (code => DIS_P3, RippleBlank_In => '0', segments => seg_3);
+           
+    segment4 : g05_7_segment_decoder
+        port map (code => DIS_P4, RippleBlank_In => '0', segments => seg_4);
 
 end behavior;

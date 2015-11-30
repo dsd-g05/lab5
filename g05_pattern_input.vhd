@@ -12,16 +12,17 @@ use ieee.std_logic_1164.all;
 entity g05_pattern_input is
 	port (
         increment, sel : in std_logic;
-        seg_code : out std_logic_vector(3 downto 0);
+        CLK : in std_logic;
+        seg_code : out std_logic_vector(2 downto 0);
         segment : out std_logic_vector(1 downto 0)
 	);
 end g05_pattern_input;
 
 architecture behavior of g05_pattern_input is
 
-    type segment is (s1, s2, s3, s4);
+    type segment_num is (s1, s2, s3, s4);
     type color is (c1, c2, c3, c4, c5, c6);
-    signal s_present, s_next : segment;
+    signal s_present, s_next : segment_num;
     signal c_present, c_next : color;
 
 begin
@@ -125,15 +126,15 @@ begin
 		end if;
 	end process; 
 
-	seg_code <= "1010" when c_present = c1 else
-				"1011" when c_present = c2 else
-				"1100" when c_present = c3 else
-				"1101" when c_present = c4 else
-				"1110" when c_present = c5 else
-				"1111" when c_present = c6 else
-				"1010";
+	seg_code <= "000" when c_present = c1 else
+				"001" when c_present = c2 else
+				"010" when c_present = c3 else
+				"011" when c_present = c4 else
+				"100" when c_present = c5 else
+				"101" when c_present = c6 else
+				"000";
 
-	segement <= "00" when s_present = s1 else
+	segment <= "00" when s_present = s1 else
 				"01" when s_present = s2 else
 				"10" when s_present = s3 else
 				"11" when s_present = s4 else
