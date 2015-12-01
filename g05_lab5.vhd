@@ -23,6 +23,7 @@ architecture behavior of g05_lab5 is
 
 	component g05_mastermind_controller is
 		port (
+            TM_OUT : in std_logic_vector;
             SC_CMP, TC_LAST : in std_logic;
             START, READY : in std_logic;
             MODE : in std_logic;
@@ -51,7 +52,7 @@ architecture behavior of g05_lab5 is
 	
     signal P_SEL, GR_SEL, SR_SEL : std_logic;
     signal GR_LD, SR_LD : std_logic;
-    signal TM_IN, TM_EN, TC_RST, TC_EN : std_logic;
+    signal TM_IN, TM_OUT, TM_EN, TC_RST, TC_EN : std_logic;
     signal TC_LAST : std_logic;
     signal SC_CMP : std_logic;
     signal SOLVED : std_logic;
@@ -129,11 +130,11 @@ begin
         port map (SC_CMP => SC_CMP, TC_LAST => TC_LAST, START => start, READY => ready,
                   MODE => mode, CLK => clk, SR_SEL => SR_SEL, P_SEL => P_SEL, GR_SEL => GR_SEL,
                   GR_LD => GR_LD, SR_LD => SR_LD, TM_IN => TM_IN, TM_EN => TM_EN, TC_EN => TC_EN,
-                  TC_RST => TC_RST, SOLVED => SOLVED);
+                  TC_RST => TC_RST, SOLVED => SOLVED, TM_OUT => TM_OUT);
                   
     datapath : g05_mastermind_datapath
         port map (P_SEL => P_SEL, GR_SEL => GR_SEL, SR_SEL => SR_SEL, GR_LD => GR_LD, SR_LD => SR_LD,
-                  TM_IN => TM_IN, TM_EN => TM_EN, TC_RST => TC_RST, TC_EN => TC_EN, EXT_PATTERN => ext_pattern,
+                  TM_IN => TM_IN, TM_OUT => TM_OUT, TM_EN => TM_EN, TC_RST => TC_RST, TC_EN => TC_EN, EXT_PATTERN => ext_pattern,
                   EXT_SCORE => encoded_score, MODE => mode, CLK => clk, TC_LAST => TC_LAST, SC_CMP => SC_CMP, 
                   DIS_P1 => DIS_P1, DIS_P2 => DIS_P2, DIS_P3 => DIS_P3, DIS_P4 => DIS_P4, DIS_P5 => DIS_P5, DIS_P6 => DIS_P6);
                   
