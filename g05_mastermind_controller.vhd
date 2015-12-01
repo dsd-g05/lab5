@@ -11,6 +11,7 @@ use ieee.std_logic_1164.all;
 
 entity g05_mastermind_controller is
 	port (
+        TM_OUT : in std_logic;
         SC_CMP, TC_LAST : in std_logic;
         START, READY : in std_logic;
         MODE : in std_logic;
@@ -67,14 +68,14 @@ begin
                     end if;
                     
                 when s6 =>
-                    if SC_CMP = '0' then
+                    if TC_LAST = '0' then
                         s_next <= s6;
                     else
                         s_next <= s7;
                     end if;
                     
                 when s7 =>
-                    if TC_LAST = '0' then
+                    if TM_OUT = '0' then
                         s_next <= s7;
                     else
                         s_next <= s8;
@@ -160,11 +161,11 @@ begin
     SR_SEL <= '1' when s_present = s5 or MODE = '1' else '0';
     P_SEL <= '1' when s_present = s6 or s_present = s7 else '0';
     GR_SEL <= '1' when s_present = s4 else '0';
-    GR_LD <= '1' when s_present = s4 or s_present = s6 or s_present = s11 else '0';
-    SR_LD <= '1' when s_present = s5 or MODE = '1' else '0';
+    GR_LD <= '1' when s_present = s4 or s_present = s11 else '0';
+    SR_LD <= '1' when s_present = s5 or s_present = s7 or MODE = '1' else '0';
     TM_IN <= '1' when s_present = s3 else
-                SC_CMP when s_present = s6 or s_present = s7 else '0';
-    TM_EN <= '1' when s_present = s3 or s_present = s6 or s_present = s7 else '0';
+                SC_CMP when s_present = s6 else '0';
+    TM_EN <= '1' when s_present = s3 or s_present = s6 else '0';
     TC_EN <= '1' when s_present = s3 or s_present = s6 or s_present = s7 or MODE = '1' else '0';
     TC_RST <= '1' when s_present = s1 or s_present = s4 or s_present = s8 else '0';
     SOLVED <= '1' when s_present = s9 or s_present = s14 else '0';
