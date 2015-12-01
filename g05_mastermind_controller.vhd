@@ -164,8 +164,9 @@ begin
     GR_LD <= '1' when s_present = s4 or s_present = s11 else '0';
     SR_LD <= '1' when s_present = s5 or s_present = s7 or MODE = '1' else '0';
     TM_IN <= '1' when s_present = s3 else
-                SC_CMP when s_present = s6 else '0';
-    TM_EN <= '1' when s_present = s3 or s_present = s6 else '0';
+            SC_CMP when s_present = s6 else '0';
+    TM_EN <= '1' when s_present = s3
+            TM_OUT when s_present = s6 else '0';
     TC_EN <= '1' when s_present = s3 or s_present = s6 or s_present = s7 or MODE = '1' else '0';
     TC_RST <= '1' when s_present = s1 or s_present = s4 or s_present = s8 else '0';
     SOLVED <= '1' when s_present = s9 or s_present = s14 else '0';
