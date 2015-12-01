@@ -55,7 +55,7 @@ architecture behavior of g05_lab5 is
     signal TC_LAST : std_logic;
     signal SC_CMP : std_logic;
     signal SOLVED : std_logic;
-    signal DIS_P1, DIS_P2, DIS_P3, DIS_P4 : std_logic_vector(3 downto 0);
+    signal DIS_P1, DIS_P2, DIS_P3, DIS_P4, DIS_P5, DIS_P6 : std_logic_vector(3 downto 0);
     
 	component g05_pattern_input is
 		port (

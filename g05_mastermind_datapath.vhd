@@ -164,7 +164,7 @@ begin
     end process;
     
     decode : g05_score_decoder
-        port map (score_code => score_reg, num_exact_matches => DIS_P5, num_color_matches => DIS_P6);
+        port map (score_code => score_reg, num_exact_matches => DIS_P6, num_color_matches => DIS_P5);
     
     SR <= score when SR_SEL = '0' else "0000";
     
