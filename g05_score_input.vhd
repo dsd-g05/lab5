@@ -12,17 +12,18 @@ use ieee.std_logic_1164.all;
 entity g05_score_input is
     port (
         increment, sel : in std_logic;
-        seg_code : out std_logic_vector(3 downto 0);
-        segment : out std_logic_vector(1 downto 0)
+        score : out std_logic_vector(2 downto 0);
+        score_part : out std_logic
     );
 end g05_score_input;
 
-architecture behavior of g05_pattern_input is
+architecture behavior of g05_score_input is
 
-    type segment is (s1, s2);
-    type score is (c1, c2, c3, c4, c5);
-    signal s_present, s_next : segment;
-    signal c_present, c_next : score;
+    type score_part_type is (s1, s2);
+    type score_type is (c1, c2, c3, c4, c5);
+    
+    signal s_present, s_next : score_part_type;
+    signal c_present, c_next : score_type;
 
 begin
     selector: process(sel)
@@ -46,9 +47,9 @@ begin
          end case;
     end process; 
 
-    process(CLK)
+    process(sel)
     begin
-        if rising_edge(CLK) then
+        if rising_edge(sel) then
             s_present <= s_next;
         end if;
     end process; 
@@ -95,23 +96,20 @@ begin
          end case; 
     end process;
     
-   process(CLK)
+   process(increment)
     begin
-        if rising_edge(CLK) then
+        if rising_edge(increment) then
             c_present <= c_next;
         end if;
     end process; 
+    
+    score <= "000" when c_present = c1 else
+             "001" when c_present = c2 else
+             "010" when c_present = c3 else
+             "011" when c_present = c4 else
+             "100" when c_present = c5 else
+             "000";
 
-    seg_code <= "0000" when c_present = c1 else
-                "0001" when c_present = c2 else
-                "0010" when c_present = c3 else
-                "0011" when c_present = c4 else
-                "0100" when c_present = c5 else
-                "0000";
-
-    segement <= "00" when s_present = s1 else
-                "01" when s_present = s2 else
-                "00";
-
+    score_part <= '0' when s_present = s1 else '1';
 
 end behavior;

@@ -12,7 +12,6 @@ use ieee.std_logic_1164.all;
 entity g05_pattern_input is
 	port (
         increment, sel : in std_logic;
-        CLK : in std_logic;
         seg_code : out std_logic_vector(2 downto 0);
         segment : out std_logic_vector(1 downto 0)
 	);

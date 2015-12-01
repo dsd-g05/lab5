@@ -15,11 +15,12 @@ entity g05_mastermind_datapath is
         GR_LD, SR_LD : in std_logic;
         TM_IN, TM_EN, TC_RST, TC_EN : in std_logic;
         EXT_PATTERN : in std_logic_vector(11 downto 0);
+        EXT_SCORE : in std_logic_vector(3 downto 0);
         MODE : in std_logic;
         CLK : in std_logic;
         TC_LAST : out std_logic;
         SC_CMP : out std_logic;
-        DIS_P1, DIS_P2, DIS_P3, DIS_P4 : out std_logic_vector(3 downto 0)
+        DIS_P1, DIS_P2, DIS_P3, DIS_P4, DIS_P5, DIS_P6 : out std_logic_vector(3 downto 0)
 	);
 end g05_mastermind_datapath;
 
@@ -61,7 +62,14 @@ architecture behavior of g05_mastermind_datapath is
             color : in std_logic_vector(2 downto 0);
             color_code : out std_logic_vector(3 downto 0)
         );
-    end component;    
+    end component;
+
+    component g05_score_decoder is
+        port (
+            score_code : in std_logic_vector(3 downto 0);
+            num_exact_matches, num_color_matches : out std_logic_vector(3 downto 0)
+        );
+    end component;
     
     signal P1, P2, P3, P4 : std_logic_vector(2 downto 0);
     signal G1, G2, G3, G4 : std_logic_vector(2 downto 0);
@@ -144,12 +152,19 @@ begin
                   
     process(CLK)
     begin
-        if (rising_edge(CLK)) then
-            if (SR_LD = '1') then
-                score_reg <= score;
+        if rising_edge(CLK) then
+            if SR_LD = '1' then
+                if MODE = '0' then
+                    score_reg <= EXT_SCORE;
+                else
+                    score_reg <= score;
+                end if;
             end if;
         end if;
     end process;
+    
+    decode : g05_score_decoder
+        port map (score_code => score_reg, num_exact_matches => DIS_P5, num_color_matches => DIS_P6);
     
     SR <= score when SR_SEL = '0' else "0000";
     

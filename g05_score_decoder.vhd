@@ -34,67 +34,71 @@ end g05_score_decoder;
 architecture behavior of g05_score_decoder is
 begin
 	process(score)
-	    begin
-			case num_color_matches is
-				when "0000" =>
-					score_code <= "0000"
-				when "0000" =>
-					score_code <= "0001"
-				when "0000" =>
-					score_code <= "0010"
-				when "0001" =>
-					score_code <= "0011"
-				when "0010" =>
-					score_code <= "0100"
-				when "0000" =>
-					score_code <= "0101"
-				when "0001" =>
-					score_code <= "0110"
-				when "0010" =>
-					score_code <= "0111"
-				when "0011" =>
-					score_code <= "1000"
-				when "0000" =>
-					score_code <= "1001"
-				when "0001" =>
-					score_code <= "1010"
-				when "0010" =>
-					score_code <= "1011"
-				when "0011" =>
-					score_code <= "1100"
-				when "0100" =>
-					score_code <= "1101"
-			end case;
+    begin
+        case num_color_matches is
+            when "0000" =>
+                score_code <= "0000";
+            when "0000" =>
+                score_code <= "0001";
+            when "0000" =>
+                score_code <= "0010";
+            when "0001" =>
+                score_code <= "0011";
+            when "0010" =>
+                score_code <= "0100";
+            when "0000" =>
+                score_code <= "0101";
+            when "0001" =>
+                score_code <= "0110";
+            when "0010" =>
+                score_code <= "0111";
+            when "0011" =>
+                score_code <= "1000";
+            when "0000" =>
+                score_code <= "1001";
+            when "0001" =>
+                score_code <= "1010";
+            when "0010" =>
+                score_code <= "1011";
+            when "0011" =>
+                score_code <= "1100";
+            when "0100" =>
+                score_code <= "1101";
+            when others =>
+                score_code <= "0000";
+        end case;
 
-			case num_exact_matches is
-				when "0100" =>
-					score_code <= "0000"
-				when "0011" =>
-					score_code <= "0001"
-				when "0010" =>
-					score_code <= "0010"
-				when "0010" =>
-					score_code <= "0011"
-				when "0010" =>
-					score_code <= "0100"
-				when "0001" =>
-					score_code <= "0101"
-				when "0001" =>
-					score_code <= "0110"
-				when "0001" =>
-					score_code <= "0111"
-				when "0001" =>
-					score_code <= "1000"
-				when "0000" =>
-					score_code <= "1001"
-				when "0000" =>
-					score_code <= "1010"
-				when "0000" =>
-					score_code <= "1011"
-				when "0000" =>
-					score_code <= "1100"
-				when "0000" =>
-					score_code <= "1101"
-			end case;
-
+        case num_exact_matches is
+            when "0100" =>
+                score_code <= "0000";
+            when "0011" =>
+                score_code <= "0001";
+            when "0010" =>
+                score_code <= "0010";
+            when "0010" =>
+                score_code <= "0011";
+            when "0010" =>
+                score_code <= "0100";
+            when "0001" =>
+                score_code <= "0101";
+            when "0001" =>
+                score_code <= "0110";
+            when "0001" =>
+                score_code <= "0111";
+            when "0001" =>
+                score_code <= "1000";
+            when "0000" =>
+                score_code <= "1001";
+            when "0000" =>
+                score_code <= "1010";
+            when "0000" =>
+                score_code <= "1011";
+            when "0000" =>
+                score_code <= "1100";
+            when "0000" =>
+                score_code <= "1101";
+            when others =>
+                score_code <= "0000";
+        end case;
+    end process;
 end behavior;

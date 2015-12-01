@@ -53,7 +53,7 @@ begin
                     end if;
                     
                 when s4 =>
-                    if READY = '0' then
+                    if READY = '1' then
                         s_next <= s4;
                     else
                         s_next <= s5;
@@ -81,7 +81,7 @@ begin
                     end if;
                     
                 when s8 =>
-                    if READY = '0' then
+                    if READY = '1' then
                         s_next <= s8;
                     else
                         s_next <= s5;
@@ -114,14 +114,14 @@ begin
                     end if;
                     
                 when s12 =>
-                    if READY = '0' then
+                    if READY = '1' then
                         s_next <= s12;
                     else
                         s_next <= s13;
                     end if;
                     
                 when s13 =>
-                    if READY = '1' then
+                    if READY = '0' then
                         s_next <= s13;
                     elsif SC_CMP = '1' then
                         s_next <= s14;
@@ -149,7 +149,7 @@ begin
             if MODE = '0' then
                 s_present <= s2;
             else
-                s_present <= s10;
+                s_present <= s11;
             end if;
 		elsif rising_edge(CLK) then
 			s_present <= s_next;
