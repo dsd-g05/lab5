@@ -62,9 +62,9 @@ begin
          end case;
     end process; 
 
-    process(CLK)
+    process(sel)
 	begin
-		if rising_edge(CLK) then
+		if rising_edge(sel) then
 			s_present <= s_next;
 		end if;
 	end process; 
@@ -119,9 +119,9 @@ begin
          end case; 
 	end process;
 	
-   process(CLK)
+   process(increment)
 	begin
-		if rising_edge(CLK) then
+		if rising_edge(increment) then
 			c_present <= c_next;
 		end if;
 	end process; 
@@ -139,6 +139,5 @@ begin
 				"10" when s_present = s3 else
 				"11" when s_present = s4 else
 				"00";
-
 
 end behavior;
