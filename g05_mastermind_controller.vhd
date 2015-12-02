@@ -162,7 +162,7 @@ begin
     P_SEL <= '1' when s_present = s6 or s_present = s7 else '0';
     GR_SEL <= '1' when s_present = s4 else '0';
     GR_LD <= '1' when s_present = s4 or s_present = s11 else '0';
-    SR_LD <= '1' when s_present = s5 or s_present = s7 or s_present = s10 or s_present = s11 or s_present = s13 or s_present = s14 else '0';
+    SR_LD <= '1' when s_present = s5 or s_present = s7 or s_present = s8 or s_present = s10 or s_present = s11 or s_present = s13 or s_present = s14 else '0';
     TM_IN <= '1' when s_present = s3 else
             SC_CMP when s_present = s6 else '0';
     TM_EN <= '1' when s_present = s3 else
