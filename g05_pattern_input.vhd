@@ -23,6 +23,7 @@ architecture behavior of g05_pattern_input is
     type color is (c1, c2, c3, c4, c5, c6);
     signal s_present, s_next : segment_num;
     signal c_present, c_next : color;
+    signal sd1, sd2, sd3, sd4 : color;
 
 begin
 	selector: process(sel)
@@ -118,7 +119,7 @@ begin
          end case; 
 	end process;
 	
-   process(increment)
+   process(increment, sel)
 	begin
 		if rising_edge(increment) then
 			c_present <= c_next;
