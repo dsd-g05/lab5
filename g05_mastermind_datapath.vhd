@@ -17,6 +17,7 @@ entity g05_mastermind_datapath is
         EXT_PATTERN : in std_logic_vector(11 downto 0);
         EXT_SCORE : in std_logic_vector(3 downto 0);
         MODE : in std_logic;
+        START_MODE : in std_logic;
         CLK : in std_logic;
         TM_OUT : out std_logic;
         TC_LAST : out std_logic;
@@ -77,6 +78,7 @@ architecture behavior of g05_mastermind_datapath is
     signal TM_ADDR : std_logic_vector(11 downto 0);
     signal score, score_reg, SR : std_logic_vector(3 downto 0);
     signal G1_code, G2_code, G3_code, G4_code, P1_code, P2_code, P3_code, P4_code : std_logic_vector(3 downto 0);
+    signal num_exact_matches, num_color_matches : std_logic_vector(3 downto 0);
     
 begin
 
@@ -132,16 +134,29 @@ begin
     process(CLK)
     begin
         if (rising_edge(CLK)) then
-            if MODE = '0' then
-                DIS_P1 <= G1_code;
-                DIS_P2 <= G2_code;
-                DIS_P3 <= G3_code;
-                DIS_P4 <= G4_code;
+            if START_MODE = '0' then
+                if MODE = '0' then
+                    DIS_P1 <= G1_code;
+                    DIS_P2 <= G2_code;
+                    DIS_P3 <= G3_code;
+                    DIS_P4 <= G4_code;
+                    DIS_P5 <= num_color_matches;
+                    DIS_P6 <= num_exact_matches;
+                else
+                    DIS_P1 <= P1_code;
+                    DIS_P2 <= P2_code;
+                    DIS_P3 <= P3_code;
+                    DIS_P4 <= P4_code;
+                    DIS_P5 <= num_color_matches;
+                    DIS_P6 <= num_exact_matches;
+                end if;  
             else
-                DIS_P1 <= P1_code;
-                DIS_P2 <= P2_code;
-                DIS_P3 <= P3_code;
-                DIS_P4 <= P4_code;
+                DIS_P1 <= "0000";
+                DIS_P2 <= "0000";
+                DIS_P3 <= "0000";
+                DIS_P4 <= "0000";
+                DIS_P5 <= "0000";
+                DIS_P6 <= "0000";
             end if;
         end if;
     end process;
@@ -165,7 +180,7 @@ begin
     end process;
     
     decode : g05_score_decoder
-        port map (score_code => score_reg, num_exact_matches => DIS_P6, num_color_matches => DIS_P5);
+        port map (score_code => score_reg, num_exact_matches => num_exact_matches, num_color_matches => num_color_matches);
     
     SR <= score when SR_SEL = '0' else "0000";
     

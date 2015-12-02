@@ -16,6 +16,7 @@ entity g05_mastermind_controller is
         START, READY : in std_logic;
         MODE : in std_logic;
         CLK : in std_logic;
+        START_MODE : out std_logic;
         SR_SEL, P_SEL, GR_SEL : out std_logic; 
         GR_LD, SR_LD : out std_logic;
         TM_IN, TM_EN, TC_EN, TC_RST : out std_logic; 
@@ -28,7 +29,7 @@ architecture behavior of g05_mastermind_controller is
                    s10, s11, s12, s13, s14);
     signal s_present, s_next : state;
 begin
-    process(SC_CMP, TC_LAST, START, READY)
+    process(SC_CMP, TC_LAST, START, READY, TM_OUT)
     begin
         if MODE = '0' then
             case s_present is
@@ -157,9 +158,9 @@ begin
 		end if;
 	end process;
     
-
+    START_MODE <= '1' when s_present = s1 or s_present = s10 else '0';
     SR_SEL <= '1' when s_present = s5 or MODE = '1' else '0';
-    P_SEL <= '1' when s_present = s6 or s_present = s7 else '0';
+    P_SEL <= '1' when s_present = s6 else '0';
     GR_SEL <= '1' when s_present = s4 else '0';
     GR_LD <= '1' when s_present = s4 or s_present = s11 or s_present = s7 else '0';
     SR_LD <= '1' when s_present = s5 or s_present = s8 or s_present = s10 or s_present = s11 or s_present = s13 or s_present = s14 else '0';

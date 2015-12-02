@@ -28,6 +28,7 @@ architecture behavior of g05_lab5 is
             START, READY : in std_logic;
             MODE : in std_logic;
             CLK : in std_logic;
+            START_MODE : out std_logic;
             SR_SEL, P_SEL, GR_SEL : out std_logic; 
             GR_LD, SR_LD : out std_logic;
             TM_IN, TM_EN, TC_EN, TC_RST : out std_logic; 
@@ -43,6 +44,7 @@ architecture behavior of g05_lab5 is
             EXT_PATTERN : in std_logic_vector(11 downto 0);
             EXT_SCORE : in std_logic_vector(3 downto 0);
             MODE : in std_logic;
+            START_MODE : in std_logic;
             CLK : in std_logic;
             TM_OUT : out std_logic;
             TC_LAST : out std_logic;
@@ -57,8 +59,10 @@ architecture behavior of g05_lab5 is
     signal TC_LAST : std_logic;
     signal SC_CMP : std_logic;
     signal SOLVED : std_logic;
+    signal tmp_P5, tmp_P6 : std_logic_vector(3 downto 0);
     signal DIS_P1, DIS_P2, DIS_P3, DIS_P4, DIS_P5, DIS_P6 : std_logic_vector(3 downto 0);
-    
+    signal START_MODE : std_logic;
+        
 	component g05_pattern_input is
 		port (
             increment, sel : in std_logic;
@@ -131,14 +135,27 @@ begin
         port map (SC_CMP => SC_CMP, TC_LAST => TC_LAST, START => start, READY => ready,
                   MODE => mode, CLK => clk, SR_SEL => SR_SEL, P_SEL => P_SEL, GR_SEL => GR_SEL,
                   GR_LD => GR_LD, SR_LD => SR_LD, TM_IN => TM_IN, TM_EN => TM_EN, TC_EN => TC_EN,
-                  TC_RST => TC_RST, SOLVED => SOLVED, TM_OUT => TM_OUT);
+                  TC_RST => TC_RST, SOLVED => SOLVED, TM_OUT => TM_OUT, START_MODE => START_MODE);
                   
     datapath : g05_mastermind_datapath
         port map (P_SEL => P_SEL, GR_SEL => GR_SEL, SR_SEL => SR_SEL, GR_LD => GR_LD, SR_LD => SR_LD,
                   TM_IN => TM_IN, TM_OUT => TM_OUT, TM_EN => TM_EN, TC_RST => TC_RST, TC_EN => TC_EN, EXT_PATTERN => ext_pattern,
                   EXT_SCORE => encoded_score, MODE => mode, CLK => clk, TC_LAST => TC_LAST, SC_CMP => SC_CMP, 
-                  DIS_P1 => DIS_P1, DIS_P2 => DIS_P2, DIS_P3 => DIS_P3, DIS_P4 => DIS_P4, DIS_P5 => DIS_P5, DIS_P6 => DIS_P6);
-                  
+                  DIS_P1 => DIS_P1, DIS_P2 => DIS_P2, DIS_P3 => DIS_P3, DIS_P4 => DIS_P4, DIS_P5 => tmp_P5, DIS_P6 => tmp_P6, START_MODE => START_MODE);
+    
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if MODE = '1' then
+                DIS_P5 <= tmp_P5;
+                DIS_P6 <= tmp_P6;
+            else
+                DIS_P5 <= '0' & color_matches;
+                DIS_P6 <= '0' & exact_matches;
+            end if;
+        end if;
+    end process;
+    
     segment1 : g05_7_segment_decoder
         port map (code => DIS_P1, RippleBlank_In => '0', segments => seg_1);
         
