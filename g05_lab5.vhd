@@ -11,11 +11,11 @@ use ieee.std_logic_1164.all;
 
 entity g05_lab5 is
 	port (
-        START, READY : in std_logic;
+        start, ready : in std_logic;
 		sel, increment : in std_logic;
-        MODE : in std_logic;
-        CLK : in std_logic;
-        SEG_1, SEG_2, SEG_3, SEG_4, SEG_5, SEG_6 : out std_logic_vector(6 downto 0)
+        mode : in std_logic;
+        clk : in std_logic;
+        seg_1, seg_2, seg_3, seg_4, seg_5, seg_6 : out std_logic_vector(6 downto 0)
 	);
 end g05_lab5;
 

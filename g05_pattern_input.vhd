@@ -121,7 +121,7 @@ begin
 	
     process(increment, sel)
 	begin
-        if rising_edge(sel) then
+        if sel = '0' then
             if s_next = s1 then
                 c_present <= sd1;
             elsif s_next = s2 then
@@ -131,7 +131,7 @@ begin
             elsif s_next = s4 then
                 c_present <= sd4;
             end if;
-		elsif rising_edge(increment) then
+		elsif increment = '0' then
 			c_present <= c_next;
 		end if;
 	end process; 
