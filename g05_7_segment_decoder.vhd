@@ -37,7 +37,7 @@ begin
         "00010010" when "00101", --display 5
         "00000010" when "00110", --display 6
         "01111000" when "00111", --display 7
-        "00000000" when "01000", --display 8
+        "00001000" when "01000", --display A
         "00011000" when "01001", --display 9
         "00000011" when "01010", --display b (blue)
         "00101111" when "01011", --display r (red)
@@ -52,7 +52,7 @@ begin
         "00010010" when "10101", --display 5
         "00000010" when "10110", --display 6
         "01111000" when "10111", --display 7
-        "00000000" when "11000", --display 8
+        "00001000" when "11000", --display A
         "00011000" when "11001", --display 9
         "00000011" when "11010", --display b (blue)
         "00101111" when "11011", --display r (red)

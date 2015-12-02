@@ -119,25 +119,38 @@ begin
          end case; 
 	end process;
 	
-   process(increment, sel)
+    process(increment, sel)
 	begin
-		if rising_edge(increment) then
+        if rising_edge(sel) then
+            if s_next = s1 then
+                c_present <= sd1;
+            elsif s_next = s2 then
+                c_present <= sd2;
+            elsif s_next = s3 then
+                c_present <= sd3;
+            elsif s_next = s4 then
+                c_present <= sd4;
+            end if;
+		elsif rising_edge(increment) then
 			c_present <= c_next;
 		end if;
 	end process; 
-
+    
+    sd1 <= c_present when s_present = s1;
+    sd2 <= c_present when s_present = s2;
+    sd3 <= c_present when s_present = s3;
+    sd4 <= c_present when s_present = s4;
+    
 	seg_code <= "000" when c_present = c1 else
 				"001" when c_present = c2 else
 				"010" when c_present = c3 else
 				"011" when c_present = c4 else
 				"100" when c_present = c5 else
-				"101" when c_present = c6 else
-				"000";
+				"101" when c_present = c6;
 
 	segment <= "00" when s_present = s1 else
 				"01" when s_present = s2 else
 				"10" when s_present = s3 else
-				"11" when s_present = s4 else
-				"00";
+				"11" when s_present = s4;
 
 end behavior;

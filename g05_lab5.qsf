@@ -105,7 +105,6 @@ set_global_assignment -name VHDL_FILE g05_7_segment_decoder.vhd
 set_global_assignment -name VHDL_FILE g05_lab5.vhd
 set_global_assignment -name VHDL_FILE g05_pattern_input.vhd
 set_global_assignment -name VHDL_FILE g05_color_decoder.vhd
-set_global_assignment -name CDF_FILE output_files/Chain1.cdf
 set_location_assignment PIN_W25 -to seg_5[6]
 set_location_assignment PIN_V23 -to seg_5[5]
 set_location_assignment PIN_W24 -to seg_5[4]
