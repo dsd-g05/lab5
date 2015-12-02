@@ -23,7 +23,7 @@ architecture behavior of g05_lab5 is
 
 	component g05_mastermind_controller is
 		port (
-            TM_OUT : in std_logic_vector;
+            TM_OUT : in std_logic;
             SC_CMP, TC_LAST : in std_logic;
             START, READY : in std_logic;
             MODE : in std_logic;
@@ -44,6 +44,7 @@ architecture behavior of g05_lab5 is
             EXT_SCORE : in std_logic_vector(3 downto 0);
             MODE : in std_logic;
             CLK : in std_logic;
+            TM_OUT : out std_logic;
             TC_LAST : out std_logic;
             SC_CMP : out std_logic;
             DIS_P1, DIS_P2, DIS_P3, DIS_P4, DIS_P5, DIS_P6 : out std_logic_vector(3 downto 0)

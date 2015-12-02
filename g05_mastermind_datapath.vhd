@@ -18,6 +18,7 @@ entity g05_mastermind_datapath is
         EXT_SCORE : in std_logic_vector(3 downto 0);
         MODE : in std_logic;
         CLK : in std_logic;
+        TM_OUT : out std_logic;
         TC_LAST : out std_logic;
         SC_CMP : out std_logic;
         DIS_P1, DIS_P2, DIS_P3, DIS_P4, DIS_P5, DIS_P6 : out std_logic_vector(3 downto 0)
@@ -175,5 +176,5 @@ begin
     possibility_table : g05_possibility_table
         port map (TC_EN => TC_EN, TC_RST => TC_RST, TM_IN => TM_IN,
                   TM_EN => TM_EN, CLK => CLK, TC_LAST => TC_LAST, 
-                  TM_ADDR => TM_ADDR);
+                  TM_ADDR => TM_ADDR, TM_OUT => TM_OUT);
 end behavior;
