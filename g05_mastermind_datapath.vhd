@@ -131,7 +131,7 @@ begin
     P4_decode : g05_color_decoder
         port map (color => P4, color_code => P4_code);
     
-    process(CLK)
+    process(CLK, START_MODE, MODE)
     begin
         if (rising_edge(CLK)) then
             if START_MODE = '0' then

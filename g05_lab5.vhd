@@ -161,6 +161,9 @@ begin
                     DIS_P6 <= "0000";
                 end if;
             end if;
+        else
+            DIS_P5 <= "0101"; -- S
+            DIS_P6 <= "0000"; -- 
         end if;
     end process;
     
