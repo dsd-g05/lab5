@@ -17,6 +17,7 @@ entity g05_mastermind_controller is
         MODE : in std_logic;
         CLK : in std_logic;
         START_MODE : out std_logic;
+        DEFAULT_SCORE : out std_logic;
         SR_SEL, P_SEL, GR_SEL : out std_logic; 
         GR_LD, SR_LD : out std_logic;
         TM_IN, TM_EN, TC_EN, TC_RST : out std_logic; 
@@ -29,9 +30,10 @@ architecture behavior of g05_mastermind_controller is
                    s10, s11, s12, s13, s14);
     signal s_present, s_next : state;
 begin
-    process(SC_CMP, TC_LAST, START, READY, TM_OUT)
+    process(SC_CMP, TC_LAST, START, READY, TM_OUT, MODE)
     begin
         if MODE = '0' then
+            DEFAULT_SCORE <= '0';
             case s_present is
                 when s1 =>
                     if START = '1' then
@@ -104,11 +106,13 @@ begin
                 when s10 =>
                     if START = '1' then
                         s_next <= s10;
+                        DEFAULT_SCORE <= '1';
                     else
                         s_next <= s11;
                     end if;
                     
                 when s11 =>
+                    DEFAULT_SCORE <= '1';
                     if START = '0' then
                         s_next <= s11;
                     else
@@ -123,6 +127,7 @@ begin
                     end if;
                     
                 when s13 =>
+                    DEFAULT_SCORE <= '0';
                     if READY = '0' then
                         s_next <= s13;
                     elsif SC_CMP = '1' then
