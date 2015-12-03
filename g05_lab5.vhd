@@ -306,6 +306,6 @@ begin
         port map (code => DIS_P5, RippleBlank_In => '0', segments => seg_5);
            
     segment6 : g05_7_segment_decoder
-        port map (code => DIS_P6, RippleBlank_In => START_MODE, segments => seg_6);
+        port map (code => DIS_P6, RippleBlank_In => '0', segments => seg_6);
 
 end behavior;
