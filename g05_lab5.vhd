@@ -145,13 +145,15 @@ begin
     
     process(clk)
     begin
-        if rising_edge(clk) then
-            if MODE = '1' then
-                DIS_P5 <= tmp_P5;
-                DIS_P6 <= tmp_P6;
-            else
-                DIS_P5 <= '0' & color_matches;
-                DIS_P6 <= '0' & exact_matches;
+        if START_MODE = '0' then
+            if rising_edge(clk) then
+                if MODE = '1' then
+                    DIS_P5 <= tmp_P5;
+                    DIS_P6 <= tmp_P6;
+                else
+                    DIS_P5 <= '0' & color_matches;
+                    DIS_P6 <= '0' & exact_matches;
+                end if;
             end if;
         end if;
     end process;

@@ -151,12 +151,12 @@ begin
                     DIS_P6 <= num_exact_matches;
                 end if;  
             else
-                DIS_P1 <= "0000";
-                DIS_P2 <= "0000";
-                DIS_P3 <= "0000";
-                DIS_P4 <= "0000";
-                DIS_P5 <= "0000";
-                DIS_P6 <= "0000";
+                DIS_P1 <= "0111"; -- T
+                DIS_P2 <= "1011"; -- R
+                DIS_P3 <= "1000"; -- A
+                DIS_P4 <= "0111"; -- T
+                DIS_P5 <= "0101"; -- S
+                DIS_P6 <= "0000"; -- 
             end if;
         end if;
     end process;
