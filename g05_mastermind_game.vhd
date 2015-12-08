@@ -1,6 +1,6 @@
 -- Descp.
 --
--- entity name: g05_lab5
+-- entity name: g05_mastermind_game 
 --
 -- Version 1.0
 -- Author: Felix Dube; felix.dube@mail.mcgill.ca & Auguste Lalande; auguste.lalande@mail.mcgill.ca
@@ -9,7 +9,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity g05_lab5 is
+entity g05_mastermind_game is
 	port (
         start, ready : in std_logic;
 		sel, increment : in std_logic;
@@ -17,9 +17,9 @@ entity g05_lab5 is
         clk : in std_logic;
         seg_1, seg_2, seg_3, seg_4, seg_5, seg_6 : out std_logic_vector(6 downto 0)
 	);
-end g05_lab5;
+end g05_mastermind_game;
 
-architecture behavior of g05_lab5 is
+architecture behavior of g05_mastermind_game is
 
 	component g05_mastermind_controller is
 		port (
