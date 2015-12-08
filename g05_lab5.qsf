@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY g05_lab5
+set_global_assignment -name TOP_LEVEL_ENTITY g05_mastermind_game
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:45:52  NOVEMBER 26, 2015"
 set_global_assignment -name LAST_QUARTUS_VERSION 15.0.0
@@ -51,9 +51,6 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 set_location_assignment PIN_AF14 -to clk
 set_location_assignment PIN_Y16 -to increment
@@ -89,23 +86,6 @@ set_location_assignment PIN_AC25 -to seg_4[3]
 set_location_assignment PIN_AD25 -to seg_4[2]
 set_location_assignment PIN_AC27 -to seg_4[1]
 set_location_assignment PIN_AD26 -to seg_4[0]
-set_global_assignment -name VHDL_FILE g05_score_decoder.vhd
-set_global_assignment -name VHDL_FILE g05_score_input.vhd
-set_global_assignment -name VHDL_FILE g05_mastermind_controller.vhd
-set_global_assignment -name VHDL_FILE g05_score_encoder.vhd
-set_global_assignment -name VHDL_FILE g05_possibility_table.vhd
-set_global_assignment -name VHDL_FILE g05_num1s.vhd
-set_global_assignment -name VHDL_FILE g05_num_matches.vhd
-set_global_assignment -name VHDL_FILE g05_minimum3.vhd
-set_global_assignment -name VHDL_FILE g05_mastermind_score.vhd
-set_global_assignment -name VHDL_FILE g05_mastermind_datapath.vhd
-set_global_assignment -name VHDL_FILE g05_comp6.vhd
-set_global_assignment -name VHDL_FILE g05_color_matches.vhd
-set_global_assignment -name VHDL_FILE g05_7_segment_decoder.vhd
-set_global_assignment -name VHDL_FILE g05_lab5.vhd
-set_global_assignment -name VHDL_FILE g05_pattern_input.vhd
-set_global_assignment -name VHDL_FILE g05_color_decoder.vhd
-set_global_assignment -name CDF_FILE output_files/Chain1.cdf
 set_location_assignment PIN_W25 -to seg_5[6]
 set_location_assignment PIN_V23 -to seg_5[5]
 set_location_assignment PIN_W24 -to seg_5[4]
@@ -120,5 +100,23 @@ set_location_assignment PIN_AB27 -to seg_6[3]
 set_location_assignment PIN_Y27 -to seg_6[2]
 set_location_assignment PIN_AA28 -to seg_6[1]
 set_location_assignment PIN_V25 -to seg_6[0]
-set_global_assignment -name CDF_FILE output_files/Chain2.cdf
+set_global_assignment -name VHDL_FILE g05_mastermind_game.vhd
+set_global_assignment -name VHDL_FILE g05_score_decoder.vhd
+set_global_assignment -name VHDL_FILE g05_score_input.vhd
+set_global_assignment -name VHDL_FILE g05_mastermind_controller.vhd
+set_global_assignment -name VHDL_FILE g05_score_encoder.vhd
+set_global_assignment -name VHDL_FILE g05_possibility_table.vhd
+set_global_assignment -name VHDL_FILE g05_num1s.vhd
+set_global_assignment -name VHDL_FILE g05_num_matches.vhd
+set_global_assignment -name VHDL_FILE g05_minimum3.vhd
+set_global_assignment -name VHDL_FILE g05_mastermind_score.vhd
+set_global_assignment -name VHDL_FILE g05_mastermind_datapath.vhd
+set_global_assignment -name VHDL_FILE g05_comp6.vhd
+set_global_assignment -name VHDL_FILE g05_color_matches.vhd
+set_global_assignment -name VHDL_FILE g05_7_segment_decoder.vhd
+set_global_assignment -name VHDL_FILE g05_pattern_input.vhd
+set_global_assignment -name VHDL_FILE g05_color_decoder.vhd
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
